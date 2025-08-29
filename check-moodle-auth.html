@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Тест входу в Moodle</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 500px;
+      overflow: hidden;
+    }
+    
+    .header {
+      background: #2d3748;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .header h2 {
+      font-weight: 600;
+      font-size: 24px;
+    }
+    
+    .content {
+      padding: 25px;
+    }
+    
+    .input-group {
+      margin-bottom: 20px;
+    }
+    
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #2d3748;
+    }
+    
+    .input-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+    
+    .input-group input:focus {
+      border-color: #4299e1;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+    }
+    
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: #4299e1;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .btn:hover {
+      background: #3182ce;
+    }
+    
+    .status {
+      margin-top: 25px;
+      padding: 15px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    .success {
+      background: #f0fff4;
+      color: #2f855a;
+      border: 1px solid #9ae6b4;
+    }
+    
+    .error {
+      background: #fff5f5;
+      color: #c53030;
+      border: 1px solid #fc8181;
+    }
+    
+    .token-info {
+      margin-top: 20px;
+      padding: 15px;
+      background: #edf2f7;
+      border-radius: 6px;
+      font-size: 14px;
+      word-break: break-all;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .loading {
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #4299e1;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .instructions {
+      background: #e6fffa;
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #234e52;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>Тест входу в Moodle</h2>
+    </div>
+    
+    <div class="content">
+      <div class="input-group">
+        <label for="username">Ім'я користувача (циферки Moodle)</label>
+        <input type="text" id="username" placeholder="Введіть ваш логін">
+      </div>
+      
+      <div class="input-group">
+        <label for="password">Пароль</label>
+        <input type="password" id="password" placeholder="Введіть ваш пароль">
+      </div>
+      
+      <button id="loginBtn" class="btn">Увійти в Moodle</button>
+      
+      <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p>Виконується вхід...</p>
+      </div>
+      
+      <div id="status" class="status hidden"></div>
+      
+      <div id="tokenInfo" class="token-info hidden">
+        <p><strong>Отриманий токен:</strong></p>
+        <p id="tokenValue"></p>
+      </div>
+      
+      <div class="instructions">
+        <p><strong>Як це працює:</strong> Ця форма відправляє запит до API Moodle для отримання токену авторизації. Якщо введені дані правильні, ви отримаєте токен, який можна використовувати для подальших запитів до Moodle.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const loginBtn = document.getElementById('loginBtn');
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+      const statusDiv = document.getElementById('status');
+      const loadingDiv = document.getElementById('loading');
+      const tokenInfoDiv = document.getElementById('tokenInfo');
+      const tokenValue = document.getElementById('tokenValue');
+      
+      loginBtn.addEventListener('click', async function() {
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+        
+        if (!username || !password) {
+          showStatus('Будь ласка, заповніть всі поля', 'error');
+          return;
+        }
+        
+        // Показати індикатор завантаження
+        loadingDiv.classList.remove('hidden');
+        statusDiv.classList.add('hidden');
+        tokenInfoDiv.classList.add('hidden');
+        
+        try {
+          // Формуємо URL для запиту до API Moodle
+          const apiUrl = `https://mdl.kntu.net.ua/login/token.php?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&service=moodle_mobile_app`;
+          
+          // Виконуємо запит до API
+          const response = await fetch(apiUrl);
+          const data = await response.json();
+          
+          // Приховуємо індикатор завантаження
+          loadingDiv.classList.add('hidden');
+          
+          if (data.token) {
+            // Якщо отримано токен - успішний вхід
+            showStatus('Успішний вхід! Токен отримано.', 'success');
+            tokenValue.textContent = data.token;
+            tokenInfoDiv.classList.remove('hidden');
+          } else if (data.error) {
+            // Якщо отримано помилку
+            showStatus(`Помилка: ${data.error}`, 'error');
+          } else {
+            // Невідома відповідь
+            showStatus('Невідома помилка. Спробуйте ще раз.', 'error');
+          }
+        } catch (error) {
+          // Помилка мережі або інша помилка
+          loadingDiv.classList.add('hidden');
+          showStatus('Помилка з\'єднання з сервером. Спробуйте ще раз.', 'error');
+          console.error('Помилка:', error);
+        }
+      });
+      
+      function showStatus(message, type) {
+        statusDiv.textContent = message;
+        statusDiv.className = `status ${type}`;
+        statusDiv.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

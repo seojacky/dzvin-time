@@ -48,210 +48,8 @@ $title = ($universityName === 'ERROR') ? 'ERROR - DzvinTime' : "DzvinTime - {$un
     <link rel="manifest" href="/manifest.json?v=<?= $version ?>">
     <script src="https://cdn.tailwindcss.com?v=<?= $version ?>"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=<?= $version ?>">
+	<link rel="stylesheet" href="style.css?v=<?= $version ?>">
 	<script defer src="https://cloud.umami.is/script.js" data-website-id="54ed36e3-6781-49f5-891f-d5588ffc6dda"></script>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #1f2937;
-                --text-color: #f3f4f6;
-                --card-bg: #374151;
-                --current-bg: #4f46e5;
-            }
-        }
-        
-        @media (prefers-color-scheme: light) {
-            :root {
-                --bg-color: #f3f4f6;
-                --text-color: #111827;
-                --card-bg: #ffffff;
-                --current-bg: #6366f1;
-            }
-        }
-        
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s;
-        }
-        
-        .card {
-            background-color: var(--card-bg);
-            transition: background-color 0.3s;
-        }
-        
-        .current {
-            background-color: var(--current-bg);
-            color: white;
-        }
-        
-        .current-break {
-            background-color: #f59e0b;
-            color: white;
-        }        
-
-        .p-4 {
-            padding: 0.5rem 1rem !important;
-        } 
-
-        .version-display {
-            font-size: 0.875rem;
-            opacity: 0.8;
-            font-weight: 400;
-            margin-left: 0.5rem;
-			margin-right: 0.5rem;
-        }
-
-        i.icons-share-ios {
-            background-image: url('icons/icons-share-ios.png');
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: center;
-            display: inline-block;
-            width: 20px; 
-            height: 20px; 
-        }
-
-        /* Стилі для вкладок */
-        .week-info-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .tab-switcher {
-            display: flex;
-            gap: 8px;
-        }
-
-        .tab-btn {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: var(--text-color);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 6px;
-            padding: 6px 12px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            background-color: white;
-            color: #4f46e5;
-            border-color: white;
-            font-weight: 600;
-        }
-
-        .tab-btn:hover:not(.active) {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .tab-content {
-            transition: opacity 0.3s;
-        }
-
-        .tab-content.hidden {
-            display: none;
-        }
-		
-		.current-class {
-			background-color: var(--current-bg) !important;
-			color: white;
-		}
-
-		.current-break {
-			background-color: #f59e0b !important;
-			color: white;
-		}
-
-		#week-info {
-			font-size: 1.3rem !important;
-			font-weight: 600;
-			color: var(--text-color);
-			transition: color 0.3s;
-		}
-
-       
-	@media (max-width: 768px) {
-		.view-switcher.flex {
-			flex-direction: row !important;
-		}
-		.date-controls.flex {
-			flex-direction: row !important;
-		}
-		.flex.gap-3.items-center {
-			flex-direction: row !important;
-		}
-		/* Приховати текст в кнопці налаштувань, залишити тільки іконку */
-    #schedule-settings-btn {
-        font-size: 0; /* приховати текст */
-        padding: 8px; /* зменшити padding */
-    }
-    
-    #schedule-settings-btn i {
-        font-size: 16px; /* розмір іконки */
-        margin-right: 0 !important; /* прибрати відступ */
-    }
-    
-    /* Додати tooltip для зручності */
-    #schedule-settings-btn:hover::after {
-        content: "Налаштування";
-        position: absolute;
-        background: rgba(0,0,0,0.8);
-        color: white;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 12px;
-        top: -30px;
-        left: 50%;
-        transform: translateX(-50%);
-        white-space: nowrap;
-        z-index: 1000;
-		}
-	/* ДОДАТИ ЦЕ для кнопки "Сьогодні" */
-    #today-btn {
-        font-size: 0; /* приховати текст */
-        padding: 8px; /* зменшити padding */
-		}
-    
-    #today-btn i {
-        font-size: 16px; /* розмір іконки */
-        margin-right: 0 !important; /* прибрати відступ */
-		}
-	}
-	/* В index.php в секції <style> додайте: */
-
-@media (max-width: 320px) {
-    #current-time {
-        font-size: 0.875rem; /* замість text-lg */
-        padding: 0.25rem 0.5rem; /* замість px-3 py-1 */
-    }
-    
-    .container.mx-auto.flex.justify-between.items-center {
-        gap: 0.5rem; /* додає відступ між заголовком і годинником */
-    }
-    
-    h1.text-2xl {
-        font-size: 1.25rem; /* зменшуємо заголовок також */
-    }
-    
-    .version-display {
-        font-size: 0.75rem; /* зменшуємо версію */
-    }
-}
-
-@media (max-width: 280px) {
-    #current-time {
-        font-size: 0.75rem;
-        padding: 0.25rem;
-    }
-    
-    h1.text-2xl {
-        font-size: 1.125rem;
-    }
-}
-    </style>
 </head>
 <body class="min-h-screen flex flex-col">
     <header class="bg-indigo-600 text-white p-4 shadow-md">
@@ -319,9 +117,16 @@ $title = ($universityName === 'ERROR') ? 'ERROR - DzvinTime' : "DzvinTime - {$un
         </div>
     </main>
 
+    <!-- Соціальні посилання -->
+    <div id="social-links-container" class="social-links-section">
+        <!-- Тут будуть відрендерені соціальні посилання -->
+    </div>
+
+    
     <footer class="bg-gray-100 dark:bg-gray-800 p-4 text-center text-gray-600 dark:text-gray-400 text-sm">
-        <p>© 2025 DzvinTime. <?= $universityName ?>.</p>
-    </footer>
+		<p>© 2025 DzvinTime • <?= $universityName ?> • Developed by Kalinsky Eugen</p>
+	</footer>
+    
 
     <!-- iOS Install Modal -->
     <div id="ios-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
@@ -336,7 +141,7 @@ $title = ($universityName === 'ERROR') ? 'ERROR - DzvinTime' : "DzvinTime - {$un
                     </div>
                     <div class="flex items-start space-x-3">
                         <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">2</span>
-                        <p>Прокрутіть вниз і виберіть <strong>"На екран «Домой»"</strong> <i class="fas fa-plus-square text-gray-600"></i></p>
+                        <p>Прокрутіть вниз і виберіть <strong>"На Домашній екран"</strong> <i class="fas fa-plus-square text-gray-600"></i></p>
                     </div>
                     <div class="flex items-start space-x-3">
                         <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">3</span>
@@ -453,7 +258,7 @@ $title = ($universityName === 'ERROR') ? 'ERROR - DzvinTime' : "DzvinTime - {$un
                     // Якщо натиснуто на "розклад" - тут буде логіка ініціалізації
                     if (targetTab === 'schedule') {
                         // TODO: Ініціалізація розкладу занять
-                        console.log('Ініціалізація розкладу занять');
+                        //console.log('Ініціалізація розкладу занять');
                     }
                 });
             });

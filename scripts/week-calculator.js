@@ -38,6 +38,6 @@ export class WeekCalculator {
     async getWeekText() {
         const weekNumber = await this.getCurrentWeekNumber();
         const weekType = weekNumber % 2 === 0 ? 'парний' : 'непарний';
-        return `${weekNumber}  (${weekType})`;
+        return `т. ${weekNumber} (${weekType})`;
     }
 }

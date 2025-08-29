@@ -1,5 +1,6 @@
 import { WeekCalculator } from './week-calculator.js';
 import { config } from './config-loader.js';
+import { socialLinksRenderer } from './social-links.js';
 
 // Імпорти для розкладу занять
 import { SettingsScheduleManager } from './settings-schedule-manager.js';
@@ -186,10 +187,10 @@ function checkCurrentPair() {
 
 // Ініціалізація розкладу занять
 async function initScheduleTab() {
-    console.log('Ініціалізація вкладки розкладу занять');
+    //console.log('Ініціалізація вкладки розкладу занять');
     
     if (scheduleInitialized) {
-        console.log('Розклад вже ініціалізовано');
+        //console.log('Розклад вже ініціалізовано');
         return;
     }
     
@@ -204,12 +205,12 @@ async function initScheduleTab() {
         const savedSettings = localStorage.getItem('scheduleSettings');
         
         if (!savedSettings) {
-            console.log('Налаштування розкладу відсутні, показуємо модалку');
+            //console.log('Налаштування розкладу відсутні, показуємо модалку');
             trackEvent('Schedule Settings', { action: 'show_modal' });
             await showScheduleSettings();
         } else {
             const settings = JSON.parse(savedSettings);
-            console.log('Знайдено збережені налаштування:', settings);
+            //console.log('Знайдено збережені налаштування:', settings);
             trackEvent('Schedule Settings', { action: 'loaded', role: settings.userRole });
             await loadScheduleContent(settings);
         }
@@ -225,7 +226,7 @@ async function initScheduleTab() {
 
 // Показ модалки налаштувань
 async function showScheduleSettings() {
-    console.log('Показуємо модалку налаштувань розкладу');
+    //console.log('Показуємо модалку налаштувань розкладу');
     
     try {
         // Створюємо менеджер налаштувань якщо його немає
@@ -235,7 +236,7 @@ async function showScheduleSettings() {
         
         // Налаштовуємо callback для збереження
         settingsManager.onSave(async (settings) => {
-            console.log('Налаштування збережено:', settings);
+            //console.log('Налаштування збережено:', settings);
             trackEvent('Schedule Settings', { action: 'saved', role: settings.userRole });
             await loadScheduleContent(settings);
         });
@@ -282,7 +283,7 @@ async function showScheduleSettings() {
 
 // Завантаження контенту розкладу
 async function loadScheduleContent(settings) {
-    console.log('Завантаження контенту розкладу для:', settings);
+    //console.log('Завантаження контенту розкладу для:', settings);
     
     try {
         // Встановлюємо налаштування в renderer
@@ -291,7 +292,7 @@ async function loadScheduleContent(settings) {
         // Рендеримо розклад з поточними налаштуваннями
         await scheduleRenderer.render(settings, new Date(), 'day');
         
-        console.log('Розклад успішно завантажено та відображено');
+        //console.log('Розклад успішно завантажено та відображено');
         trackEvent('Schedule Loaded', { 
             role: settings.userRole,
             faculty: settings.facultyName 
@@ -367,6 +368,15 @@ async function init() {
         updateSelectedDateDisplay();
         await renderSchedule();
         
+        // Ініціалізуємо та рендеримо соціальні посилання
+        try {
+            await socialLinksRenderer.initAndRender();
+            //console.log('Соціальні посилання успішно відрендерено');
+        } catch (error) {
+            console.warn('Помилка ініціалізації соціальних посилань:', error);
+            // Не блокуємо основну ініціалізацію через помилку соціальних посилань
+        }
+        
         // Трекінг успішної ініціалізації дзвінків
         trackEvent('Bells Loaded');
         
@@ -395,6 +405,13 @@ async function init() {
         updateSelectedDateDisplay();
         await renderSchedule();
         
+        // Все одно спробуємо ініціалізувати соціальні посилання
+        try {
+            await socialLinksRenderer.initAndRender();
+        } catch (socialError) {
+            console.warn('Помилка ініціалізації соціальних посилань при fallback:', socialError);
+        }
+        
         setInterval(updateCurrentTime, 1000);
         setInterval(checkCurrentPair, 10000);
         
@@ -411,7 +428,7 @@ function setupTabHandlers() {
         button.addEventListener('click', async () => {
             const targetTab = button.dataset.tab;
             
-            console.log(`Перемикання на вкладку: ${targetTab}`);
+            //console.log(`Перемикання на вкладку: ${targetTab}`);
             
             // Трекінг перемикання вкладок
             trackEvent('Tab Switch', { tab: targetTab });

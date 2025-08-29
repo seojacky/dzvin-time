@@ -1,4 +1,4 @@
-const VERSION = '1.6.10';
+const VERSION = '1.6.11';
 const CACHE_NAME = `bell-schedule-v${VERSION}`;
 const BASE_PATH = '';
 

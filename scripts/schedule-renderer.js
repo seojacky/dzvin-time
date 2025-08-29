@@ -71,7 +71,7 @@ export class ScheduleRenderer {
             this.uiManager.setupResponsiveHandler();
             
             this.isInitialized = true;
-            console.log('ScheduleRenderer ініціалізовано');
+            //console.log('ScheduleRenderer ініціалізовано');
             
         } catch (error) {
             console.error('Помилка ініціалізації ScheduleRenderer:', error);
