@@ -22,7 +22,7 @@ export class ScheduleAPI {
             this.messages = await config.getMessages();
             
             this.isInitialized = true;
-            console.log('ScheduleAPI ініціалізовано');
+            //console.log('ScheduleAPI ініціалізовано');
         } catch (error) {
             console.error('Помилка ініціалізації ScheduleAPI:', error);
             throw error;
@@ -36,7 +36,7 @@ export class ScheduleAPI {
         try {
             await this.ensureInitialized();
             
-            console.log(`Завантаження розкладу на ${date} для:`, settings);
+            //console.log(`Завантаження розкладу на ${date} для:`, settings);
 
             let scheduleData;
             
@@ -52,7 +52,7 @@ export class ScheduleAPI {
             const validatedData = this.validateScheduleData(scheduleData);
             const formattedData = await this.formatScheduleForDisplay(validatedData, settings);
 
-            console.log('Розклад успішно завантажено:', formattedData);
+            //console.log('Розклад успішно завантажено:', formattedData);
             return formattedData;
 
         } catch (error) {
@@ -76,7 +76,7 @@ export class ScheduleAPI {
             await this.ensureInitialized();
             
             const weekDates = this.getWeekDates(startDate);
-            console.log(`Завантаження тижневого розкладу з ${weekDates[0]} по ${weekDates[4]}`);
+            //console.log(`Завантаження тижневого розкладу з ${weekDates[0]} по ${weekDates[4]}`);
 
             // Паралельні запити для всіх днів тижня
             const schedulePromises = weekDates.map(date => 
@@ -109,7 +109,7 @@ export class ScheduleAPI {
                 settings: settings
             };
 
-            console.log(`Тижневий розклад завантажено: ${successfulDays}/5 днів`);
+            //console.log(`Тижневий розклад завантажено: ${successfulDays}/5 днів`);
             return weekData;
 
         } catch (error) {
@@ -124,7 +124,7 @@ export class ScheduleAPI {
             await this.ensureInitialized();
             
             const dates = this.getDateRange(startDate, endDate);
-            console.log(`Завантаження розкладу за період: ${dates.length} днів`);
+            //console.log(`Завантаження розкладу за період: ${dates.length} днів`);
 
             if (dates.length > 14) {
                 console.warn('Завантаження розкладу за період більше 14 днів може зайняти багато часу');

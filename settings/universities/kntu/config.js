@@ -6,6 +6,46 @@ export default {
     "shortName": "ХНТУ",
     "timeZone": "Europe/Kiev"
   },
+
+  // === СОЦІАЛЬНІ ПОСИЛАННЯ ===
+  "socialLinks": [
+    {
+      "name": "website",
+      "title": "Офіційний сайт ХНТУ",
+      "url": "https://kntu.net.ua/ukr"
+    },
+    {
+      "name": "moodle",
+      "title": "Система дистанційного навчання",
+      "url": "https://mdl.kntu.net.ua/"
+    },
+    {
+      "name": "email",
+      "title": "Корпоративна пошта Carbonio",
+      "url": "https://mail.kntu.edu.ua/"
+    },
+    {
+      "name": "instagram",
+      "title": "Instagram ХНТУ",
+      "url": "https://instagram.com/kntu_official"
+    },
+    {
+      "name": "facebook",
+      "title": "Facebook ХНТУ",
+      "url": "https://www.facebook.com/kntu.net.ua/"
+    },
+    {
+      "name": "youtube",
+      "title": "YouTube канал ХНТУ",
+      "url": "https://www.youtube.com/channel/UC7oozvQhiNTmgrPv5lX63Tg"
+    },
+    {
+      "name": "telegram",
+      "title": "Telegram новини ХНТУ",
+      "url": "https://t.me/khntu_news"
+    }
+  ],
+
   "schedule": {
     "bellSchedule": [
       {
@@ -59,8 +99,8 @@ export default {
       }
     ],
     "academicYear": {
-      "startDate": "2024-09-02",
-      "endDate": "2025-06-30"
+      "startDate": "2025-09-01",
+      "endDate": "2026-08-30"
     }
   },
   

@@ -1,0 +1,311 @@
+@media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1f2937;
+                --text-color: #f3f4f6;
+                --card-bg: #374151;
+                --current-bg: #4f46e5;
+            }
+        }
+        
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg-color: #f3f4f6;
+                --text-color: #111827;
+                --card-bg: #ffffff;
+                --current-bg: #6366f1;
+            }
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            transition: background-color 0.3s;
+        }
+        
+        .current {
+            background-color: var(--current-bg);
+            color: white;
+        }
+        
+        .current-break {
+            background-color: #f59e0b;
+            color: white;
+        }        
+
+        .p-4 {
+            padding: 0.5rem 1rem !important;
+        } 
+
+        .version-display {
+            font-size: 0.875rem;
+            opacity: 0.8;
+            font-weight: 400;
+            margin-left: 0.5rem;
+			margin-right: 0.5rem;
+        }
+
+        i.icons-share-ios {
+            background-image: url('icons/icons-share-ios.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            display: inline-block;
+            width: 20px; 
+            height: 20px; 
+        }
+
+        /* Стилі для вкладок */
+        .week-info-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tab-switcher {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tab-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background-color: white;
+            color: #4f46e5;
+            border-color: white;
+            font-weight: 600;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .tab-content {
+            transition: opacity 0.3s;
+        }
+
+        .tab-content.hidden {
+            display: none;
+        }
+		
+		.current-class {
+			background-color: var(--current-bg) !important;
+			color: white;
+		}
+
+		.current-break {
+			background-color: #f59e0b !important;
+			color: white;
+		}
+
+		#week-info {
+			font-size: 1.3rem !important;
+			font-weight: 600;
+			color: var(--text-color);
+			transition: color 0.3s;
+		}
+
+       
+	@media (max-width: 768px) {
+		.view-switcher.flex {
+			flex-direction: row !important;
+		}
+		.date-controls.flex {
+			flex-direction: row !important;
+		}
+		.flex.gap-3.items-center {
+			flex-direction: row !important;
+		}
+		/* Приховати текст в кнопці налаштувань, залишити тільки іконку */
+    #schedule-settings-btn {
+        font-size: 0; /* приховати текст */
+        padding: 8px; /* зменшити padding */
+    }
+    
+    #schedule-settings-btn i {
+        font-size: 16px; /* розмір іконки */
+        margin-right: 0 !important; /* прибрати відступ */
+    }
+    
+    /* Додати tooltip для зручності */
+    #schedule-settings-btn:hover::after {
+        content: "Налаштування";
+        position: absolute;
+        background: rgba(0,0,0,0.8);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        z-index: 1000;
+		}
+	/* ДОДАТИ ЦЕ для кнопки "Сьогодні" */
+    #today-btn {
+        font-size: 0; /* приховати текст */
+        padding: 8px; /* зменшити padding */
+		}
+    
+    #today-btn i {
+        font-size: 16px; /* розмір іконки */
+        margin-right: 0 !important; /* прибрати відступ */
+		}
+	}
+	/* В index.php в секції <style> додайте: */
+
+@media (max-width: 320px) {
+    #current-time {
+        font-size: 0.875rem; /* замість text-lg */
+        padding: 0.25rem 0.5rem; /* замість px-3 py-1 */
+    }
+    
+    .container.mx-auto.flex.justify-between.items-center {
+        gap: 0.5rem; /* додає відступ між заголовком і годинником */
+    }
+    
+    h1.text-2xl {
+        font-size: 1.25rem; /* зменшуємо заголовок також */
+    }
+    
+    .version-display {
+        font-size: 0.75rem; /* зменшуємо версію */
+    }
+}
+
+@media (max-width: 280px) {
+    #current-time {
+        font-size: 0.75rem;
+        padding: 0.25rem;
+    }
+    
+    h1.text-2xl {
+        font-size: 1.125rem;
+    }
+}
+
+/* Стилі для соціальних посилань */
+.social-links-section {
+    padding: 1rem 0;
+    background: transparent;
+}
+
+.social-links-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background-color: #f3f4f6;
+    color: #6b7280;
+    text-decoration: none;
+    font-size: 2.35rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.social-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background-color: #4f46e5;
+    color: white;
+}
+
+.social-link:active {
+    transform: translateY(0);
+}
+
+/* Темна тема для соціальних посилань */
+@media (prefers-color-scheme: dark) {
+    .social-link {
+        background-color: #374151;
+        color: #9ca3af;
+    }
+    
+    .social-link:hover {
+        background-color: #4f46e5;
+        color: white;
+    }
+}
+
+/* Адаптивні розміри для мобільних */
+@media (max-width: 768px) {
+    .social-links-wrapper {
+        gap: 0.3rem;
+    }
+    
+    .social-link {
+        width: 3rem;
+        height: 3rem;
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .social-links-wrapper {
+        gap: 0.25rem;
+    }
+    
+    .social-link {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.5rem;
+    }
+}
+
+/* Специфічні кольори для різних соціальних мереж при hover */
+.social-link[data-social="website"]:hover {
+    background-color: #4f46e5;
+}
+
+.social-link[data-social="moodle"]:hover {
+    background-color: #f97316;
+}
+
+.social-link[data-social="email"]:hover {
+    background-color: #0891b2;
+}
+
+.social-link[data-social="instagram"]:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.social-link[data-social="facebook"]:hover {
+    background-color: #1877f2;
+}
+
+.social-link[data-social="youtube"]:hover {
+    background-color: #ff0000;
+}
+
+.social-link[data-social="telegram"]:hover {
+    background-color: #0088cc;
+}
